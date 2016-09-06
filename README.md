@@ -5,7 +5,7 @@
 ```npm install --save supreme-api```  
 
 ### Usage
-```
+```javascript
 var supreme = require('supreme-api');
 
 supreme.getItems(function(items){
