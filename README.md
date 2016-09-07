@@ -12,7 +12,7 @@ supreme.getItems(function(items){
     console.log(items);
 });
 
-supreme.getItem('/jackets/fman5r0xy/aw5dopam2', function(item){
+supreme.getItem('http://www.supremenewyork.com/shop/jackets/fman5r0xy/aw5dopam2', function(item){
     console.log(item);
 });
 
@@ -32,4 +32,4 @@ supreme.onNewItem(5, function(item) {
 
 ```
 ### Usage
-* Watch and seek for changes on individual items. 
+* Watch and seek for changes on individual items.
