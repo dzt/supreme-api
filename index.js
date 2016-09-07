@@ -15,9 +15,7 @@ api.getItems = function(callback) {
     request(api.url + '/shop/all', function(err, resp, html, rrr, body) {
         if (!err && resp.statusCode == 200) {
             var $ = cheerio.load(html);
-            var parsedResults = {
-                items: []
-            };
+            var parsedResults = [];
             $('img').each(function(i, element) {
 
                 var nextElement = $(this).next();
@@ -59,8 +57,8 @@ api.getItems = function(callback) {
                         metadata.images.push('https:' + $('#img-main').attr('src'))
                     }
 
-                    //parsedResults.items.push(metadata);
-                    callback(metadata);
+                    parsedResults.push(metadata);
+                    callback(parsedResults);
                 })
 
             });

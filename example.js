@@ -7,6 +7,7 @@ supreme.getItems(function(items){
     console.log(items);
 });
 
+/*
 console.log('Get a single item:');
 supreme.getItem('http://www.supremenewyork.com/shop/jackets/fman5r0xy/aw5dopam2', function(item){
     console.log(item);
@@ -21,3 +22,4 @@ console.log('Stop watching all items:');
 supreme.stopWatchingAllItems(function(status) {
     console.log(status);
 });
+*/
