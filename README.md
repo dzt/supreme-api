@@ -2,7 +2,7 @@
 ## A NodeJS API for [supremenewyork.com](http://www.supremenewyork.com/)
 
 ### How to install
-```npm install --save supreme-api```  
+```npm install supreme-api --save```  
 
 ### Usage
 ```javascript
@@ -30,5 +30,7 @@ supreme.onNewItem(5, function(item) {
     console.log('New Release: ' + item.name);
 });
 
+### Usage
+  * Watch and seek for changes on individual items. 
 
 ```
