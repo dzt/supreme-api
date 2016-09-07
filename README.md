@@ -30,7 +30,6 @@ supreme.onNewItem(5, function(item) {
     console.log('New Release: ' + item.name);
 });
 
-### Usage
-  * Watch and seek for changes on individual items. 
-
 ```
+### Usage
+* Watch and seek for changes on individual items. 
