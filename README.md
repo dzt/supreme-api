@@ -31,5 +31,5 @@ supreme.onNewItem(5, function(item) {
 });
 
 ```
-### Usage
+### Future of this project
 * Watch and seek for changes on individual items.
