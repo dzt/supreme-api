@@ -16,7 +16,6 @@ supreme.getItem('/jackets/fman5r0xy/aw5dopam2', function(item){
     console.log(item);
 });
 
-
 // check every 5 seconds
 supreme.watchAllItems(5, function(items) {
     console.log(items);
@@ -26,7 +25,8 @@ supreme.stopWatchingAllItems(function(status) {
     console.log(status);
 });
 
-supreme.onNewItem(function(item) {
+// seek for a new item every 5 seconds
+supreme.onNewItem(5, function(item) {
     console.log('New Release: ' + item.name);
 });
 
