@@ -157,6 +157,51 @@ api.onNewItem = function(callback) {
     });
 }
 
+/**
+ * Seeks for items on desired category page with specific keywords/styles.
+ * @param  {Number} interval
+ * @param  {String} category
+ * @param  {String} style
+ * @param  {String} category
+ * @return {Object}
+ */
+api.seek = function(category, keywords, styleSelection, callback) {
+ var productLink = [];
+    api.getItems(category, items => {
+        for (i = 0; i < items.length; i++) {
+            var title = items[i].title;
+            var style = items[i].style;
+
+            if (style === null) {
+                // type - style note defined without a match
+                if (title.indexOf(keywords) > -1) { // check if the keywords match with the title
+                    // found item
+                    productLink.push(items[i].link);
+                    callback(items[i], null);
+                    break;
+                } else {
+                    continue;
+                }
+            } else if (style == styleSelection) {
+                // type - style defined with match
+                if (title.indexOf(keywords) > -1) { // check if the keywords match with the title
+                    // found item
+                    productLink.push(items[i].link);
+                    callback(items[i], null);
+                    break;
+                } else {
+                    continue;
+                }
+            }
+        }
+
+        if (productLink[0] === undefined) {
+            callback(null, "Could not find any results matching your keywords.");
+        }
+
+    });
+}
+
 api.log = function(message) {
     console.log('[supreme api] ' + message);
 }

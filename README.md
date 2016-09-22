@@ -8,26 +8,58 @@
 ```javascript
 var supreme = require('supreme-api');
 
-supreme.getItems(function(items){
+supreme.getItems((items, err) => {
+    if (err) {
+        console.log(err);
+        return err;
+    }
     console.log(items);
 });
 
-supreme.getItem('http://www.supremenewyork.com/shop/jackets/fman5r0xy/aw5dopam2', function(item){
+supreme.getItem('http://www.supremenewyork.com/shop/jackets/fman5r0xy/aw5dopam2', (item, err) => {
+    if (err) {
+        console.log(err);
+        return err;
+    }
     console.log(item);
 });
 
 // check every 5 seconds
-supreme.watchAllItems(5, function(items) {
+supreme.watchAllItems(5, (items, err) => {
+    if (err) {
+        console.log(err);
+        return err;
+    }
     console.log(items);
 });
-
-supreme.stopWatchingAllItems(function(status) {
+// Cancel Item watch
+supreme.stopWatchingAllItems((status, err) => {
+    if (err) {
+        console.log(err);
+        return err;
+    }
     console.log(status);
 });
 
 // seek for a new item every 5 seconds
-supreme.onNewItem(5, function(item) {
+supreme.onNewItem(5, (product, err) => {
+    if (err) {
+        console.log(err);
+        return err;
+    }
     console.log('New Release: ' + item.name);
+});
+
+const category = 'jackets';
+const keywords = "UNDERCOVER";
+const style = 'Burgundy';
+
+supreme.seek(category, keywords, style, (product, err) => {
+    if (err) {
+        console.log(err);
+        return err;
+    }
+    console.log(product);
 });
 
 ```
