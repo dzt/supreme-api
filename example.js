@@ -3,8 +3,8 @@ var supreme = require('./index') || require('supreme-api');
 console.log('Supreme Website \n' + supreme.url);
 
 supreme.getItems('bags', function(items){
+    //console.log(items.length);
     console.log(items.length);
-    //console.log(items);
 });
 
 /*

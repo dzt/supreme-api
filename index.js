@@ -18,6 +18,7 @@ String.prototype.capitalizeEachWord = function() {
 
 /**
  * Checks for items under desired category
+ *
  * @param  {String} category
  * @return {Array}
  */
@@ -33,7 +34,7 @@ api.getItems = function(category, callback) {
         if (!err && resp.statusCode == 200) {
             var $ = cheerio.load(html);
             var parsedResults = [];
-            var len = $('img').length;
+            var count = $('img').length;
             // console.log(len);
             $('img').each(function(i, element) {
 
@@ -77,8 +78,10 @@ api.getItems = function(category, callback) {
                     }
 
                     parsedResults.push(metadata);
-                    callback(parsedResults);
 
+                    if (!--count) {
+                        callback(parsedResults);
+                    }
 
 
                 })
