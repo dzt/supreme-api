@@ -2,9 +2,9 @@ var supreme = require('./index') || require('supreme-api');
 
 console.log('Supreme Website \n' + supreme.url);
 
-console.log('All Items on the Supreme Website: ');
-supreme.getItems(function(items){
-    console.log(items);
+supreme.getItems('bags', function(items){
+    console.log(items.length);
+    //console.log(items);
 });
 
 /*

@@ -1,5 +1,6 @@
 var cheerio = require('cheerio'),
-    request = require('request');
+    request = require('request'),
+    Promise = require('bluebird');
 
 var api = {};
 
@@ -11,11 +12,29 @@ String.prototype.capitalizeEachWord = function() {
     });
 }
 
-api.getItems = function(callback) {
-    request(api.url + '/shop/all', function(err, resp, html, rrr, body) {
+// getItem('all')
+// other options: new, jackets, shirts, tops_sweaters, sweatshirts,
+// pants, hats, bags, accessories, shoes, skate
+
+/**
+ * Checks for items under desired category
+ * @param  {String} category
+ * @return {Array}
+ */
+
+api.getItems = function(category, callback) {
+
+    var getURL = api.url + '/shop/all/' + category;
+    if (category == 'all') {
+      getURL = api.url + '/shop/all';
+    }
+
+    request(getURL, function(err, resp, html, rrr, body) {
         if (!err && resp.statusCode == 200) {
             var $ = cheerio.load(html);
             var parsedResults = [];
+            var len = $('img').length;
+            // console.log(len);
             $('img').each(function(i, element) {
 
                 var nextElement = $(this).next();
@@ -59,6 +78,9 @@ api.getItems = function(callback) {
 
                     parsedResults.push(metadata);
                     callback(parsedResults);
+
+
+
                 })
 
             });
