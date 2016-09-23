@@ -6,7 +6,7 @@
 
 ### Usage
 ```javascript
-var supreme = require('supreme-api');
+const supreme = require('supreme-api');
 
 supreme.getItems((items, err) => {
     if (err) {
