@@ -80,9 +80,8 @@ api.getItems = function(category, callback) {
                     parsedResults.push(metadata);
 
                     if (!--count) {
-                        callback(parsedResults);
+                        callback(parsedResults, null);
                     }
-
 
                 })
 
@@ -127,7 +126,7 @@ api.getItem = function(itemURL, callback) {
             metadata.images.push('https:' + $('#img-main').attr('src'))
         }
 
-        callback(metadata);
+        callback(null, metadata);
     });
 };
 
@@ -136,7 +135,7 @@ api.watchAllItems = function(interval, callback) {
     api.log('Now watching for all items');
     api.watchOnAllItems = setInterval(function() {
       api.getItems(function(items){
-          callback(items);
+          callback(null, items);
       });
     }, 1000 * interval); // Every xx sec
 }
@@ -144,9 +143,9 @@ api.watchAllItems = function(interval, callback) {
 api.stopWatchingAllItems = function(callback) {
     clearInterval(api.watchOnAllItems);
     if (api.watchOnAllItems == "") {
-      callback('No watching processes found.');
+      callback(null, 'No watching processes found.');
     } else {
-      callback('Watching has stopped.');
+      callback('Watching has stopped.', null);
     }
 }
 
