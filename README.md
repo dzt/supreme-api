@@ -34,6 +34,7 @@ supreme.watchAllItems(5, (items, err) => {
     }
     console.log(items);
 });
+
 // Cancel Item watch
 supreme.stopWatchingAllItems((status, err) => {
     if (err) {
@@ -43,14 +44,16 @@ supreme.stopWatchingAllItems((status, err) => {
     console.log(status);
 });
 
-// seek for a new item every 5 seconds
+// Look for a new item every 5 seconds
 supreme.onNewItem(5, (product, err) => {
     if (err) {
         console.log(err);
         return err;
     }
-    console.log('New Release: ' + item.name);
+    console.log('New Release: ' + item.name); 
 });
+
+// Find items based on specific keywords
 
 const category = 'jackets';
 const keywords = "UNDERCOVER";
@@ -62,6 +65,7 @@ supreme.seek(category, keywords, style, (product, err) => {
         return err;
     }
     console.log(product);
+    console.log(product.title); // example => Supreme®/UNDERCOVER Wool Overcoat
 });
 
 ```
