@@ -27,7 +27,7 @@ supreme.getItem('http://www.supremenewyork.com/shop/jackets/fman5r0xy/aw5dopam2'
 });
 
 // check every 5 seconds
-supreme.watchAllItems(5, (items, err) => {
+supreme.watchAllItems(5, 'shoes', (items, err) => {
     if (err) {
         console.log(err);
         return err;
@@ -69,5 +69,13 @@ supreme.seek(category, keywords, style, (product, err) => {
 });
 
 ```
+
 ### Future of this project
-* Watch and seek for changes on individual items.
+* Watch and seek for changes on individual items. (Coming Soon)
+
+## Contribution
+Want to make a contribution? Fork the repo, add your changes, and submit a pull request. Any type of contributions (ideas, bug fixes, fixing typos, etc.) will be appreciated!
+
+
+## License
+Nimble is licensed under [MIT License](https://github.com/dzt/supreme-api/blob/master/LICENSE).

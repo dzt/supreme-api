@@ -130,11 +130,11 @@ api.getItem = function(itemURL, callback) {
 };
 
 api.watchOnAllItems = [];
-api.watchAllItems = function(interval, callback) {
+api.watchAllItems = function(interval, category, callback) {
     api.log('Now watching for all items');
     api.watchOnAllItems = setInterval(function() {
-      api.getItems(function(items){
-          callback(null, items);
+      api.getItems(category, function(items){
+          callback(items, null);
       });
     }, 1000 * interval); // Every xx sec
 }
