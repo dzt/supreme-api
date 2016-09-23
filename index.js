@@ -1,6 +1,5 @@
 var cheerio = require('cheerio'),
-    request = require('request'),
-    Promise = require('bluebird');
+    request = require('request');
 
 var api = {};
 
