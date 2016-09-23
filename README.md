@@ -1,7 +1,7 @@
 # Supreme API
 ## A NodeJS API for [supremenewyork.com](http://www.supremenewyork.com/)
 
-[![NPM](https://nodei.co/npm/<package>.png)](https://npmjs.org/package/supreme-api)
+[![NPM](https://nodei.co/npm/supreme-api.png)](https://npmjs.org/package/supreme-api)
 
 ### How to install
 ```npm install supreme-api --save```  
