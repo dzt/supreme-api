@@ -43,6 +43,7 @@ api.getItems = function(category, callback) {
                 var title = $(this).attr('alt');
                 var availability = nextElement.text().capitalizeEachWord();
                 var link = api.url + this.parent.attribs.href;
+                
 
                 if (availability == "") availability = "Available";
 
@@ -55,6 +56,7 @@ api.getItems = function(category, callback) {
                         style: $('.style').attr('itemprop', 'model').text(),
                         link: link,
                         description: $('.description').text(),
+                        addCartURL: api.url + $('form[id="cart-addf"]').attr('action'),
                         price: parseInt(($('.price')[0].children[0].children[0].data).replace('$', '').replace(',', '')),
                         image: image,
                         images: [],
@@ -105,6 +107,7 @@ api.getItem = function(itemURL, callback) {
             style: $('.style').attr('itemprop', 'model').text(),
             link: itemURL,
             description: $('.description').text(),
+            addCartURL: api.url + $('form[id="cart-addf"]').attr('action'),
             price: parseInt(($('.price')[0].children[0].children[0].data).replace('$', '').replace(',', '')),
             image: 'TODO',
             images: [],
