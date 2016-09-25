@@ -51,12 +51,18 @@ api.getItems = function(category, callback) {
 
                     var $ = cheerio.load(html);
 
+                    var addCartURL = api.url + $('form[id="cart-addf"]').attr('action');
+                    
+                    if (availability == "Sold Out") {
+                        addCartURL = null;
+                    }
+
                     var metadata = {
                         title: $('h1').attr('itemprop', 'name').eq(1).html(),
                         style: $('.style').attr('itemprop', 'model').text(),
                         link: link,
                         description: $('.description').text(),
-                        addCartURL: api.url + $('form[id="cart-addf"]').attr('action'),
+                        addCartURL: addCartURL,
                         price: parseInt(($('.price')[0].children[0].children[0].data).replace('$', '').replace(',', '')),
                         image: image,
                         images: [],
