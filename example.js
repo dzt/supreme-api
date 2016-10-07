@@ -14,11 +14,10 @@ supreme.seek(category, keywords, style, (product, err) => {
 });
 
 
-supreme.getItems('bags', (product, err) => {
+supreme.getItems('new', (product, err) => {
     if (err) {
         console.log(err);
         return err;
     }
     console.log(product);
 });
-

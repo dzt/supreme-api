@@ -27,6 +27,8 @@ api.getItems = function(category, callback) {
     var getURL = api.url + '/shop/all/' + category;
     if (category == 'all') {
       getURL = api.url + '/shop/all';
+    } else if (category == 'new'){
+      getURL = api.url + '/shop/new';
     }
 
     request(getURL, function(err, resp, html, rrr, body) {
@@ -43,7 +45,7 @@ api.getItems = function(category, callback) {
                 var title = $(this).attr('alt');
                 var availability = nextElement.text().capitalizeEachWord();
                 var link = api.url + this.parent.attribs.href;
-                
+
 
                 if (availability == "") availability = "Available";
 
@@ -52,7 +54,7 @@ api.getItems = function(category, callback) {
                     var $ = cheerio.load(html);
 
                     var addCartURL = api.url + $('form[id="cart-addf"]').attr('action');
-                    
+
                     if (availability == "Sold Out") {
                         addCartURL = null;
                     }

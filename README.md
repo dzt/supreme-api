@@ -50,7 +50,7 @@ supreme.onNewItem(5, (product, err) => {
         console.log(err);
         return err;
     }
-    console.log('New Release: ' + item.name); 
+    console.log('New Release: ' + item.name);
 });
 
 // Find items based on specific keywords
@@ -78,4 +78,4 @@ Want to make a contribution? Fork the repo, add your changes, and submit a pull 
 
 
 ## License
-Nimble is licensed under [MIT License](https://github.com/dzt/supreme-api/blob/master/LICENSE).
+supreme-api is licensed under [MIT License](https://github.com/dzt/supreme-api/blob/master/LICENSE).
