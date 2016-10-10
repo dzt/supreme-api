@@ -1,6 +1,6 @@
 {
   "name": "supreme-api",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "Node.js API for supremenewyork.com",
   "main": "index.js",
   "scripts": {

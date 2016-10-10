@@ -1,9 +1,9 @@
 var supreme = require('./index') || require('supreme-api');
 
 // Find Product Based on Keywords
-const keywords = "UNDERCOVER";
-const style = 'Burgundy';
-const category = 'jackets';
+const keywords = "Sumo Tee";
+const style = 'Black';
+const category = 'new';
 
 supreme.seek(category, keywords, style, (product, err) => {
     if (err) {
@@ -19,5 +19,5 @@ supreme.getItems('new', (product, err) => {
         console.log(err);
         return err;
     }
-    console.log(product);
+    //console.log(product);
 });

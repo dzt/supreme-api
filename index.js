@@ -95,8 +95,6 @@ api.getItems = function(category, callback) {
                 })
 
             });
-        } else if (err && resp.statusCode != 200) {
-            console.log("Error: " + err + "\n with status code: " + resp.statusCode);
         } else {
             console.log("Unknown error");
         }
@@ -191,7 +189,7 @@ api.seek = function(category, keywords, styleSelection, callback) {
                 } else {
                     continue;
                 }
-            } else if (style == styleSelection) {
+            } else if (style.indexOf(styleSelection) > -1) {
                 // type - style defined with match
                 if (title.indexOf(keywords) > -1) { // check if the keywords match with the title
                     // found item
