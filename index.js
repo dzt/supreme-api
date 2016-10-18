@@ -114,7 +114,7 @@ api.getItem = function(itemURL, callback) {
             link: itemURL,
             description: $('.description').text(),
             addCartURL: api.url + $('form[id="cart-addf"]').attr('action'),
-            price: parseInt(($('.price')[0].children[0].children[0].data).replace('$', '').replace(',', '')),
+            price: parseInt(($('.price')[0].children[0].children[0].data).replace(/[$€¥,]/, ''), 10),
             image: 'TODO',
             images: [],
             availability: 'TODO'
