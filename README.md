@@ -4,7 +4,9 @@
 [![NPM](https://nodei.co/npm/supreme-api.png)](https://npmjs.org/package/supreme-api)
 
 ### How to install
-```npm install supreme-api --save```  
+```npm install supreme-api --save```
+
+Check out the [docs](https://github.com/dzt/supreme-api/wiki/Docs)!
 
 ### Usage
 ```javascript
