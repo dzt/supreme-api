@@ -63,7 +63,11 @@ api.getItems = function(category, callback) {
                     var sizeOptionsAvailable = [];
                     if ($('option')) {
                         $('option').each(function(i, elem) {
-                            sizeOptionsAvailable.push($(this).text());
+                            var size = {
+                              id: parseInt($(this).attr('value')),
+                              size: $(this).text(),
+                            }
+                            sizeOptionsAvailable.push(size);
                         });
 
                         if (sizeOptionsAvailable.length > 0) {
@@ -127,7 +131,11 @@ api.getItem = function(itemURL, callback) {
         var sizeOptionsAvailable = [];
         if ($('option')) {
             $('option').each(function(i, elem) {
-                sizeOptionsAvailable.push($(this).text());
+              var size = {
+                id: parseInt($(this).attr('value')),
+                size: $(this).text(),
+              }
+              sizeOptionsAvailable.push(size);
             });
 
             if (sizeOptionsAvailable.length > 0) {
@@ -140,6 +148,7 @@ api.getItem = function(itemURL, callback) {
         }
 
         var availability;
+        var addCartURL = api.url + $('form[id="cart-addf"]').attr('action');
 
         var addCartButton = $('input[value="add to cart"]')
         if (addCartButton.attr('type') == '') {
@@ -148,12 +157,16 @@ api.getItem = function(itemURL, callback) {
           availability = 'Sold Out'
         }
 
+        if (availability == 'Sold Out') {
+          addCartURL = null
+        }
+
         var metadata = {
             title: $('h1').attr('itemprop', 'name').eq(1).html(),
             style: $('.style').attr('itemprop', 'model').text(),
             link: itemURL,
             description: $('.description').text(),
-            addCartURL: api.url + $('form[id="cart-addf"]').attr('action'),
+            addCartURL: addCartURL,
             price: parseInt(($('.price')[0].children[0].children[0].data).replace('$', '').replace(',', '')),
             image: 'http:' + $('#img-main').attr('src'),
             sizesAvailable: sizesAvailable,
