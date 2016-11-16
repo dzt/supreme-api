@@ -26,9 +26,9 @@ api.getItems = function(category, callback) {
 
     var getURL = api.url + '/shop/all/' + category;
     if (category == 'all') {
-      getURL = api.url + '/shop/all';
-    } else if (category == 'new'){
-      getURL = api.url + '/shop/new';
+        getURL = api.url + '/shop/all';
+    } else if (category == 'new') {
+        getURL = api.url + '/shop/new';
     }
 
     request(getURL, function(err, resp, html, rrr, body) {
@@ -45,6 +45,7 @@ api.getItems = function(category, callback) {
                 var title = $(this).attr('alt');
                 var availability = nextElement.text().capitalizeEachWord();
                 var link = api.url + this.parent.attribs.href;
+                var sizesAvailable;
 
 
                 if (availability == "") availability = "Available";
@@ -59,6 +60,21 @@ api.getItems = function(category, callback) {
                         addCartURL = null;
                     }
 
+                    var sizeOptionsAvailable = [];
+                    if ($('option')) {
+                        $('option').each(function(i, elem) {
+                            sizeOptionsAvailable.push($(this).text());
+                        });
+
+                        if (sizeOptionsAvailable.length > 0) {
+                          sizesAvailable = sizeOptionsAvailable
+                        } else {
+                          sizesAvailable = null
+                        }
+                    } else {
+                        sizesAvailable = null;
+                    }
+
                     var metadata = {
                         title: $('h1').attr('itemprop', 'name').eq(1).html(),
                         style: $('.style').attr('itemprop', 'model').text(),
@@ -67,6 +83,7 @@ api.getItems = function(category, callback) {
                         addCartURL: addCartURL,
                         price: parseInt(($('.price')[0].children[0].children[0].data).replace('$', '').replace(',', '')),
                         image: image,
+                        sizesAvailable: sizesAvailable,
                         images: [],
                         availability: availability
                     };
@@ -102,11 +119,34 @@ api.getItems = function(category, callback) {
 };
 
 api.getItem = function(itemURL, callback) {
-    // TODO Gets the value of a single item
 
     request(itemURL, function(err, resp, html, rrr, body) {
 
         var $ = cheerio.load(html);
+
+        var sizeOptionsAvailable = [];
+        if ($('option')) {
+            $('option').each(function(i, elem) {
+                sizeOptionsAvailable.push($(this).text());
+            });
+
+            if (sizeOptionsAvailable.length > 0) {
+              sizesAvailable = sizeOptionsAvailable
+            } else {
+              sizesAvailable = null
+            }
+        } else {
+            sizesAvailable = null;
+        }
+
+        var availability;
+
+        var addCartButton = $('input[value="add to cart"]')
+        if (addCartButton.attr('type') == '') {
+          availability = 'Available'
+        } else {
+          availability = 'Sold Out'
+        }
 
         var metadata = {
             title: $('h1').attr('itemprop', 'name').eq(1).html(),
@@ -115,9 +155,10 @@ api.getItem = function(itemURL, callback) {
             description: $('.description').text(),
             addCartURL: api.url + $('form[id="cart-addf"]').attr('action'),
             price: parseInt(($('.price')[0].children[0].children[0].data).replace('$', '').replace(',', '')),
-            image: 'TODO',
+            image: 'http:' + $('#img-main').attr('src'),
+            sizesAvailable: sizesAvailable,
             images: [],
-            availability: 'TODO'
+            availability: availability
         };
 
         // Some items don't have extra images (like some of the skateboards)
@@ -142,18 +183,18 @@ api.watchOnAllItems = [];
 api.watchAllItems = function(interval, category, callback) {
     api.log('Now watching for all items');
     api.watchOnAllItems = setInterval(function() {
-      api.getItems(category, function(items){
-          callback(items, null);
-      });
+        api.getItems(category, function(items) {
+            callback(items, null);
+        });
     }, 1000 * interval); // Every xx sec
 }
 
 api.stopWatchingAllItems = function(callback) {
     clearInterval(api.watchOnAllItems);
     if (api.watchOnAllItems == "") {
-      callback(null, 'No watching processes found.');
+        callback(null, 'No watching processes found.');
     } else {
-      callback('Watching has stopped.', null);
+        callback('Watching has stopped.', null);
     }
 }
 
@@ -173,7 +214,7 @@ api.onNewItem = function(callback) {
  * @return {Object}
  */
 api.seek = function(category, keywords, styleSelection, callback) {
- var productLink = [];
+    var productLink = [];
     api.getItems(category, items => {
         for (i = 0; i < items.length; i++) {
             var title = items[i].title;
