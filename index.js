@@ -1,5 +1,8 @@
-var cheerio = require('cheerio'),
-    request = require('request');
+var cheerio = require('cheerio');
+var request = require('request');
+var request = require('request').defaults({
+     timeout: 30000
+});
 
 var api = {};
 
@@ -33,7 +36,11 @@ api.getItems = function(category, callback) {
 
     request(getURL, function(err, resp, html, rrr, body) {
         if (!err && resp.statusCode == 200) {
-            var $ = cheerio.load(html);
+                if (err) {
+                    return callback('No response from website', null);
+                } else {
+                    var $ = cheerio.load(html);
+                }
             var parsedResults = [];
             var count = $('img').length;
             // console.log(len);
@@ -52,7 +59,11 @@ api.getItems = function(category, callback) {
 
                 request(link, function(err, resp, html, rrr, body) {
 
-                    var $ = cheerio.load(html);
+                    if (err) {
+                         return callback('No response from website', null);
+                    } else {
+                        var $ = cheerio.load(html);
+                    }
 
                     var addCartURL = api.url + $('form[id="cart-addf"]').attr('action');
 
@@ -126,7 +137,11 @@ api.getItem = function(itemURL, callback) {
 
     request(itemURL, function(err, resp, html, rrr, body) {
 
-        var $ = cheerio.load(html);
+        if (err) {
+             return callback('No response from website', null);
+        } else {
+            var $ = cheerio.load(html);
+        }
 
         var sizeOptionsAvailable = [];
         if ($('option')) {
