@@ -243,7 +243,10 @@ api.onNewItem = function(callback) {
  */
 api.seek = function(category, keywords, styleSelection, callback) {
     var productLink = [];
-    api.getItems(category, items => {
+    api.getItems(category, (product, err) => {
+        if (err) {
+            callback(null, 'Error occured while trying to seek for items.');
+        }
         for (i = 0; i < items.length; i++) {
             var title = items[i].title;
             var style = items[i].style;
