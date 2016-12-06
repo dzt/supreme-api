@@ -247,16 +247,16 @@ api.seek = function(category, keywords, styleSelection, callback) {
         if (err) {
             callback(null, 'Error occured while trying to seek for items.');
         }
-        for (i = 0; i < items.length; i++) {
-            var title = items[i].title;
-            var style = items[i].style;
+        for (i = 0; i < product.length; i++) {
+            var title = product[i].title;
+            var style = product[i].style;
 
             if (style === null) {
                 // type - style note defined without a match
                 if (title.indexOf(keywords) > -1) { // check if the keywords match with the title
                     // found item
-                    productLink.push(items[i].link);
-                    callback(items[i], null);
+                    productLink.push(product[i].link);
+                    callback(product[i], null);
                     break;
                 } else {
                     continue;
@@ -265,8 +265,8 @@ api.seek = function(category, keywords, styleSelection, callback) {
                 // type - style defined with match
                 if (title.indexOf(keywords) > -1) { // check if the keywords match with the title
                     // found item
-                    productLink.push(items[i].link);
-                    callback(items[i], null);
+                    productLink.push(product[i].link);
+                    callback(product[i], null);
                     break;
                 } else {
                     continue;
