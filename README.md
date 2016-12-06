@@ -12,7 +12,7 @@ Check out the [docs](https://github.com/dzt/supreme-api/wiki/Docs)!
 ```javascript
 const supreme = require('supreme-api');
 
-supreme.getItems((items, err) => {
+supreme.getItems('all', (items, err) => {
     if (err) {
         console.log(err);
         return err;
