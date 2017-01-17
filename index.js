@@ -1,7 +1,7 @@
 var cheerio = require('cheerio');
 var request = require('request');
 var request = require('request').defaults({
-     timeout: 30000
+    //timeout: 30000
 });
 
 var api = {};
@@ -35,14 +35,26 @@ api.getItems = function(category, callback) {
     }
 
     request(getURL, function(err, resp, html, rrr, body) {
-        if (!err && resp.statusCode == 200) {
-                if (err) {
-                    return callback('No response from website', null);
-                } else {
-                    var $ = cheerio.load(html);
-                }
-            var parsedResults = [];
+
+        if (!err) {
+            if (err) {
+                console.log('err')
+                return callback('No response from website', null);
+            } else {
+                var $ = cheerio.load(html);
+            }
+
             var count = $('img').length;
+
+            if ($('.shop-closed').length > 0) {
+              return callback('Store Closed', null);
+            } else if (count === 0) {
+              return callback('Store Closed', null);
+            }
+
+            var parsedResults = [];
+
+
             // console.log(len);
             $('img').each(function(i, element) {
 
@@ -60,7 +72,7 @@ api.getItems = function(category, callback) {
                 request(link, function(err, resp, html, rrr, body) {
 
                     if (err) {
-                         return callback('No response from website', null);
+                        return callback('No response from website', null);
                     } else {
                         var $ = cheerio.load(html);
                     }
@@ -75,16 +87,16 @@ api.getItems = function(category, callback) {
                     if ($('option')) {
                         $('option').each(function(i, elem) {
                             var size = {
-                              id: parseInt($(this).attr('value')),
-                              size: $(this).text(),
+                                id: parseInt($(this).attr('value')),
+                                size: $(this).text(),
                             }
                             sizeOptionsAvailable.push(size);
                         });
 
                         if (sizeOptionsAvailable.length > 0) {
-                          sizesAvailable = sizeOptionsAvailable
+                            sizesAvailable = sizeOptionsAvailable
                         } else {
-                          sizesAvailable = null
+                            sizesAvailable = null
                         }
                     } else {
                         sizesAvailable = null;
@@ -128,7 +140,7 @@ api.getItems = function(category, callback) {
 
             });
         } else {
-            console.log("Unknown error");
+            return callback('No response from website', null);
         }
     });
 };
@@ -138,7 +150,7 @@ api.getItem = function(itemURL, callback) {
     request(itemURL, function(err, resp, html, rrr, body) {
 
         if (err) {
-             return callback('No response from website', null);
+            return callback('No response from website', null);
         } else {
             var $ = cheerio.load(html);
         }
@@ -146,17 +158,17 @@ api.getItem = function(itemURL, callback) {
         var sizeOptionsAvailable = [];
         if ($('option')) {
             $('option').each(function(i, elem) {
-              var size = {
-                id: parseInt($(this).attr('value')),
-                size: $(this).text(),
-              }
-              sizeOptionsAvailable.push(size);
+                var size = {
+                    id: parseInt($(this).attr('value')),
+                    size: $(this).text(),
+                }
+                sizeOptionsAvailable.push(size);
             });
 
             if (sizeOptionsAvailable.length > 0) {
-              sizesAvailable = sizeOptionsAvailable
+                sizesAvailable = sizeOptionsAvailable
             } else {
-              sizesAvailable = null
+                sizesAvailable = null
             }
         } else {
             sizesAvailable = null;
@@ -167,13 +179,13 @@ api.getItem = function(itemURL, callback) {
 
         var addCartButton = $('input[value="add to cart"]')
         if (addCartButton.attr('type') == '') {
-          availability = 'Available'
+            availability = 'Available'
         } else {
-          availability = 'Sold Out'
+            availability = 'Sold Out'
         }
 
         if (availability == 'Sold Out') {
-          addCartURL = null
+            addCartURL = null
         }
 
         var metadata = {
