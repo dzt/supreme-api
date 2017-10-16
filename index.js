@@ -177,8 +177,7 @@ api.getItem = function(itemURL, callback) {
         var availability;
         var addCartURL = api.url + $('form[id="cart-addf"]').attr('action');
 
-        var addCartButton = $('input[value="add to cart"]')
-        if (addCartButton.attr('type') == '') {
+        if ($('form[id="cart-addf"]').length != 0) {
             availability = 'Available'
         } else {
             availability = 'Sold Out'
