@@ -245,6 +245,9 @@ api.getItem = function (itemURL, callback) {
 
 api.watchOnAllItems = [];
 api.watchAllItems = function (interval, category, callback) {
+	// For now return this callback 
+	return callback(null, Error("This function is not yet implemented"))
+	
 	api.log('Now watching for all items');
 	api.watchOnAllItems = setInterval(function () {
 		api.getItems(category, function (items) {
@@ -263,10 +266,8 @@ api.stopWatchingAllItems = function (callback) {
 };
 
 // searches for new item drop TODO
-api.onNewItem = function (callback) {
-	api.watchAllItems(function (item) {
-		// TODO: If new items is find return callback(value);
-	});
+api.onNewItem = function (interval, category = "all", callback) {
+	api.watchAllItems(interval, category, callback)
 };
 
 /**
