@@ -16,7 +16,7 @@
   "author": "Peter Soboyejo <thepcmrtim@gmail.com> (http://petersoboyejo.com)",
   "license": "MIT",
   "dependencies": {
-    "cheerio": "^0.19.0",
+    "cheerio": "^0.22.0",
     "request": "^2.58.0"
   }
 }
